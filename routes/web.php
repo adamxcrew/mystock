@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController as DashAdmin;
+use App\Http\Controllers\Pimpinan\DashboardController as DashPimpinan;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 Route::group(['middleware' => ['web','auth','roles']],function() {
     Route::group(['roles' => 'pimpinan'], function () {
-
+        Route::get('/pimpinan/dashboard', [DashPimpinan::class, 'index'])->name('pimpinan.dashboard');
     });
     Route::group(['roles' => 'admin'], function () {
-        Route::get('/testing', [DashAdmin::class, 'index'])->name('admin.dashboard');
+        Route::get('/admin/dashboard', [DashAdmin::class, 'index'])->name('admin.dashboard');
     });
 });
 
